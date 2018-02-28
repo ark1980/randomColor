@@ -9,8 +9,15 @@ class App extends Component {
     const BOX_NUMBS = 32;
     const boxes = Array(BOX_NUMBS).fill().map(this.getRandomColor, this);
     this.state = {
-      colors: boxes
+      boxes: boxes
     }
+
+    setInterval(() => {
+      const boxes = this.state.boxes.slice();
+      const randomIndex = Math.floor(Math.random() * boxes.length);
+      boxes[randomIndex] = this.getRandomColor();
+      this.setState({boxes});
+    },1000)
 
   }
 
@@ -26,7 +33,7 @@ class App extends Component {
           <img src={logo} className="App-logo" alt="logo" />
           <h1 className="App-title">Random Color</h1>
         </header>
-        {this.state.colors.map((color, index) => 
+        {this.state.boxes.map((color, index) => 
          <Box color={color}/>
         )}
       </div>
